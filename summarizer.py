@@ -10,8 +10,6 @@
 #
 # print(text_data)
 
-
-
 import io
 
 from pdfminer.converter import TextConverter
@@ -19,6 +17,11 @@ from pdfminer.pdfinterp import PDFPageInterpreter
 from pdfminer.pdfinterp import PDFResourceManager
 from pdfminer.pdfpage import PDFPage
 
+import pdfminer
+import sys
+
+# print("Sys path: ", sys.path)
+# exit()
 
 # data mining shit goes here
 def extract_text_from_pdf(pdf_path):
@@ -26,6 +29,28 @@ def extract_text_from_pdf(pdf_path):
     fake_file_handle = io.StringIO()
     converter = TextConverter(resource_manager, fake_file_handle)
     page_interpreter = PDFPageInterpreter(resource_manager, converter)
+
+    laparams = pdfminer.layout.LAParams()
+
+    # setattr(laparams, "all_texts", True)
+    # setattr(laparams, "detect_vertical", True)
+    # setattr(laparams, "word_margin", 1.0)
+    # setattr(laparams, "char_margin", 1.0)
+    # setattr(laparams, "line_margin", 1.0)
+    # setattr(laparams, "boxes_flow", 1.0)
+
+
+    for param in ("all_texts", "detect_vertical", "word_margin", "char_margin", "line_margin", "boxes_flow"):
+        paramv = locals().get(param, None)
+        print("param: ", param)
+        print("paramv: ", paramv)
+        if paramv is not None:
+            setattr(laparams, param, paramv)
+        else:
+            laparams = None
+
+    # exit()
+
 
     with open(pdf_path, 'rb') as fh:
         for page in PDFPage.get_pages(fh,
