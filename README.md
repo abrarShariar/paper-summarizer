@@ -6,7 +6,7 @@ Linux:
 
 ```
 $ apt-get install python3-pypdf2
-$ pip3 install PyPDF2
+$ pip3 install -r requirements.txt
 
 ```
 
@@ -14,6 +14,6 @@ MAC:
 
 ```
 $ brew install python3-pypdf2
-$ pip3 install PyPDF2
+$ pip3 install -r requirements.txt
 
 ```
